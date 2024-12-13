@@ -1,0 +1,22 @@
+<main class="px-24 py-12 container justify-center flex flex-col">
+  <div class="flex justify-center">
+    <div class="text-2xl font-medium pb-4">Look At My Pokemon Collection</div>
+  </div>
+  <div class="flex flex-wrap gap-5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl shadow-2xl p-4">
+    <div
+      *ngFor="let pok of pokemonList"
+      class="p-4 bg-slate-300 flex flex-wrap"
+    >
+      <div class="flex flex-col justify-between" (click)="selectPokemon(pok.url)">
+        <img [src]="pok.image" alt="imageAnimal" class="w-[150px]" />
+        <div class="font-semibold">{{ pok.name }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center">
+  <app-detail-pokemon
+  [pokemon]="selectedPokemon"
+  [theme]="theme"
+></app-detail-pokemon>
+</div>
+</main>
