@@ -8,6 +8,7 @@ import { DetailPokemonComponent } from './components/detail-pokemon/detail-pokem
 import { PokemonGoComponent } from './components/pokemon-go/pokemon-go.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { CardDetailModalComponent } from './components/card-detail-modal/card-detail-modal.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CardDetailModalComponent } from './components/card-detail-modal/card-de
     PokemonListComponent,
     DetailPokemonComponent,
     PokemonGoComponent,
-    CardDetailModalComponent
+    CardDetailModalComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

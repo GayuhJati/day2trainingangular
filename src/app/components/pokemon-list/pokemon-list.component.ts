@@ -2,6 +2,7 @@ import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular
 import { PokemonService } from '../../services/pokemon.services';
 import { CardDetailModalComponent } from '../card-detail-modal/card-detail-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { colorMap, PokemonType } from '../constant/pokemon-color';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -23,6 +24,15 @@ export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 0;
+  isLoading: boolean = true;
+
+  colorMap = colorMap;
+  
+
+  getTypeClass(pokemonType: PokemonType): string {
+    return this.colorMap[pokemonType] || 'bg-gray-300 text-black'; 
+  }
+  
 
   async openModal(url: any): Promise<void>  {
     const pokemonDetails = await this.pokemonService.getPokemonDetail(url);
@@ -42,7 +52,8 @@ export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   async fetchPokemon() {
-    const rawPokemonList = await this.pokemonService.getPokemonList(150); // Fetch first 150 Pokémon
+    const rawPokemonList = await this.pokemonService.getPokemonList(150);
+    this.isLoading = true; // Fetch first 150 Pokémon
     this.pokemonList = await Promise.all(
       rawPokemonList.map(async (pokemon: any) => {
         const details = await this.pokemonService.getPokemonDetail(
@@ -57,6 +68,7 @@ export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
       })
     );
     this.filteredPokemon = this.pokemonList;
+    this.isLoading = false;
     this.updatePagination();
   }
 

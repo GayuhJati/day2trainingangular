@@ -1,20 +1,32 @@
-<div *ngIf="pokemon" class="px-[64px] py-[64px] flex justify-center flex-col">
-    <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" class="w-[50%]" />
-    <div class="text-center">Halo saya {{ pokemon.name }}</div>
-    <h2>Statistics</h2>
-    <div class="stats-slider">
-      <div *ngFor="let stat of pokemon.stats" class="stat-bar">
-        <span class="stat-name">{{ stat.stat.name | titlecase }}</span>
-        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-            <div 
-              class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
-              [ngStyle]="{'width': stat.base_stat + '%'}">
-              {{ stat.base_stat }}
-            </div>
-          </div>
-          
-        <span class="stat-value">{{ stat.base_stat }}</span>
+<div
+  *ngIf="pokemon"
+  class="container px-[64px] py-[64px] flex flex-col"
+>
+<div class="w-full flex flex-col gap-1">
+  <div class="flex justify-center">
+    <img
+      [src]="pokemon.sprites.front_default"
+      alt="{{ pokemon.name }}"
+      class="w-[30%]"
+    />
+  </div>
+  <div class="text-center text-lg font-medium">Halo saya <span class="uppercase"> {{ pokemon.name }} </span></div>
+  <h2 class="font-medium">Statistics</h2>
+  <div class="stats-slider">
+    <div *ngFor="let stat of pokemon.stats" class="stat-bar">
+      <span class="stat-name">{{ stat.stat.name | titlecase }}</span>
+      <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+        <div
+          class="bg-gradient-to-r from-teal-400 to-blue-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+          [ngStyle]="{ width: stat.base_stat + '%' }"
+        >
+          {{ stat.base_stat }}
+        </div>
       </div>
     </div>
-    <button class="p-4 bg-slate-50 rounded-lg" routerLink="">Balik aku malu</button>
+  </div>
+  <button class="p-4 bg-slate-50 rounded-lg" routerLink="">
+    Back To Pokemon List
+  </button>
+</div>
 </div>
