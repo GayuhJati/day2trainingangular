@@ -2,16 +2,41 @@
   <div class="flex justify-center">
     <div class="text-2xl font-medium pb-4">Look At My Pokemon Collection</div>
   </div>
-  <div class="flex flex-wrap gap-5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl shadow-2xl p-4">
+  <div class="flex items-center gap-4 mb-4">
+    <input type="text" placeholder="Search Pokémon" [(ngModel)]="filter" (input)="applyFilter()"
+        [ngClass]="theme === 'light' ? 'bg-white text-black' : 'bg-gray-700 text-white'"
+        class="p-2 border border-gray-300 rounded" />
+
+    <select [(ngModel)]="selectedElement" (change)="applyFilter()"
+        [ngClass]="theme === 'light' ? 'bg-white text-black' : 'bg-gray-700 text-white'"
+        class="p-2 border border-gray-300 rounded">
+        <option value="">All Elements</option>
+        <option *ngFor="let element of elements" [value]="element">
+            {{ element }}
+        </option>
+    </select>
+</div>
+  <div class="flex flex-wrap justify-center gap-5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl shadow-2xl p-4">
     <div
-      *ngFor="let pok of pokemonList"
-      class="p-4 bg-slate-300 flex flex-wrap"
+    *ngFor="let pok of paginatedPokemon" (click)="selectPokemon(pok.url)"
+      class="p-4 bg-slate-300 rounded-md bg-opacity-60 flex justify-center flex-wrap"
     >
-      <div class="flex flex-col justify-between" (click)="selectPokemon(pok.url)">
+      <div class="flex flex-col justify-between">
         <img [src]="pok.image" alt="imageAnimal" class="w-[150px]" />
-        <div class="font-semibold">{{ pok.name }}</div>
+        <div class="font-semibold text-center uppercase">{{ pok.name }}</div>
       </div>
     </div>
+    <div class="flex items-center justify-between mt-6">
+      <button class="px-4 py-2 text-white bg-blue-500 rounded" [disabled]="currentPage === 1"
+          (click)="previousPage()">
+          Previous
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button class="px-4 py-2 text-white bg-blue-500 rounded" [disabled]="currentPage === totalPages"
+          (click)="nextPage()">
+          Next
+      </button>
+  </div>
   </div>
   <div class="flex justify-center">
   <app-detail-pokemon
