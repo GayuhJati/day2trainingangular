@@ -6,13 +6,16 @@ import { AppComponent } from './app.component';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { DetailPokemonComponent } from './components/detail-pokemon/detail-pokemon.component';
 import { PokemonGoComponent } from './components/pokemon-go/pokemon-go.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { CardDetailModalComponent } from './components/card-detail-modal/card-detail-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonListComponent,
     DetailPokemonComponent,
-    PokemonGoComponent
+    PokemonGoComponent,
+    CardDetailModalComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,8 @@ import { PokemonGoComponent } from './components/pokemon-go/pokemon-go.component
     FormsModule
   ],
   providers: [
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

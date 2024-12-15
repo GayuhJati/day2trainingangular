@@ -1,0 +1,16 @@
+<div class="p-4">
+  <h2 mat-dialog-title>Card Details</h2>
+  <div mat-dialog-content>
+    <img [src]="data.sprites.front_default" alt="{{ data.name }}" />
+    <p><strong>Height:</strong> {{ data.height }}</p>
+    <p><strong>Weight:</strong> {{ data.weight }}</p>
+    <p><strong>Abilities:</strong></p>
+    <ul>
+      <li *ngFor="let ability of data.abilities">{{ ability.ability.name }}</li>
+    </ul>
+  </div>
+  <div mat-dialog-actions>
+    <button routerLink="pokemon/{{ data.name }}"> Lihat</button>
+    <button mat-button (click)="close()">Close</button>
+  </div>
+</div>

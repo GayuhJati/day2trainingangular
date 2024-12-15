@@ -1,5 +1,7 @@
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { PokemonService } from '../../services/pokemon.services';
+import { CardDetailModalComponent } from '../card-detail-modal/card-detail-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -22,7 +24,15 @@ export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
   itemsPerPage: number = 10;
   totalPages: number = 0;
 
-  constructor(private pokemonService: PokemonService) {
+  async openModal(url: any): Promise<void>  {
+    const pokemonDetails = await this.pokemonService.getPokemonDetail(url);
+    this.dialog.open(CardDetailModalComponent, {
+      width: '400px',
+      data: pokemonDetails,
+    });
+  }
+
+  constructor(private pokemonService: PokemonService, private dialog: MatDialog) {
     console.log('constructore called');
   }
 
@@ -93,7 +103,6 @@ export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
 
   async selectPokemon(url: string) {
     this.selectedPokemon = await this.pokemonService.getPokemonDetail(url);
-    console
   }
 
   toggleTheme() {
