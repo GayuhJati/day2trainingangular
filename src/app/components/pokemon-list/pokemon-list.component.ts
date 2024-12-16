@@ -13,6 +13,19 @@ import { colorMap, PokemonType } from '../constant/pokemon-color';
 })
 
 export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
+
+  colorMapper: Record<PokemonType, string> = {
+    Fire: 'bg-red-500 text-white',
+    Water: 'bg-blue-500 text-white',
+    Grass: 'bg-green-500 text-white',
+    Electric: 'bg-yellow-500 text-black',
+    Ice: 'bg-blue-200 text-black',
+    Rock: 'bg-gray-500 text-white',
+    Flying: 'bg-purple-400 text-white',
+    Psychic: 'bg-pink-500 text-white',
+    Dark: 'bg-gray-800 text-white',
+    Fairy: 'bg-pink-300 text-black',
+  };
   pokemonList: any[] = [];
   filteredPokemon: any[] = [];
   paginatedPokemon: any[] = [];
@@ -26,7 +39,7 @@ export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
   totalPages: number = 0;
   isLoading: boolean = true;
 
-  colorMap = colorMap;
+  colorMap = this.colorMapper;
   
 
   getTypeClass(pokemonType: PokemonType): string {

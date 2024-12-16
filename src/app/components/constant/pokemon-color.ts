@@ -28,6 +28,6 @@ export const colorMap: Record<PokemonType, string> = {
 @NgModule({
   declarations: [],
   imports: [],
-  exports: [] // Tidak ada komponen yang diekspor
+  exports: [] 
 })
 export class ColorWayModule { }

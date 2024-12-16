@@ -1,32 +1,59 @@
 <div
   *ngIf="pokemon"
-  class="container px-[64px] py-[64px] flex flex-col"
+  class="container px-[64px] py-[64px] flex flex-col justify-items-center"
 >
-<div class="w-full flex flex-col gap-1">
-  <div class="flex justify-center">
-    <img
-      [src]="pokemon.sprites.front_default"
-      alt="{{ pokemon.name }}"
-      class="w-[30%]"
-    />
-  </div>
-  <div class="text-center text-lg font-medium">Halo saya <span class="uppercase"> {{ pokemon.name }} </span></div>
-  <h2 class="font-medium">Statistics</h2>
-  <div class="stats-slider">
-    <div *ngFor="let stat of pokemon.stats" class="stat-bar">
-      <span class="stat-name">{{ stat.stat.name | titlecase }}</span>
-      <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-        <div
-          class="bg-gradient-to-r from-teal-400 to-blue-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full max-w-[100%]"
-          [ngStyle]="{ width: stat.base_stat + '%' }"
-        >
-          {{ stat.base_stat }}
+  <div class="w-full flex flex-col gap-1 justify-center">
+    <div class="flex justify-center items-center flex-col gap-4">
+      <img
+        [src]="pokemon.sprites.front_default"
+        alt="{{ pokemon.name }}"
+        class="w-[30%]"
+      />
+      <button
+        (click)="hearCry(pokemon.cries.latest)"
+        class="p-2 bg-sky-400 rounded-md text-white"
+      >
+        Hear Cry
+      </button>
+      <div class="text-center text-lg font-medium">
+        Halo saya <span class="uppercase"> {{ pokemon.name }} </span>
+      </div>
+    </div>
+    <div class="stats-slider">
+      <h2 class="font-medium">Statistics</h2>
+      <div *ngFor="let stat of pokemon.stats" class="stat-bar">
+        <span class="stat-name">{{ stat.stat.name | titlecase }}</span>
+        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+          <div
+            class="bg-gradient-to-r from-teal-400 to-blue-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full max-w-[100%]"
+            [ngStyle]="{ width: stat.base_stat + '%' }"
+          >
+            {{ stat.base_stat }}
+          </div>
         </div>
       </div>
     </div>
+    <div class="flex flex-col justify-center gap-2">
+      <div class="font-semibold">Evolution</div>
+      <div
+        *ngFor="let ctx of evolutionChain"
+        class="flex flex-col justify-center min-w-md max-w-lg"
+      >
+        <button
+          [routerLink]="['/pokemon', ctx.name]"
+          (click)="selectedEvolvePage(ctx.name)"
+          [ngClass]="{
+            'bg-green-500 text-white': selectedButton === ctx.name,
+            'bg-slate-100 text-black': selectedButton !== ctx.name
+          }"
+          class="p-2 text-center capitalize rounded-md"
+        >
+          {{ ctx.name }}
+        </button>
+      </div>
+    </div>
+    <button class="p-4 bg-slate-50 rounded-lg" routerLink="">
+      Back To Pokemon List
+    </button>
   </div>
-  <button class="p-4 bg-slate-50 rounded-lg" routerLink="">
-    Back To Pokemon List
-  </button>
-</div>
 </div>
