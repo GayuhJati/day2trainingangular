@@ -52,8 +52,15 @@
         </button>
       </div>
     </div>
+    <button mat-flat-button (click)="openModalBuy()">Buy</button>
     <button class="p-4 bg-slate-50 rounded-lg" routerLink="">
       Back To Pokemon List
     </button>
   </div>
 </div>
+
+<app-form-submission
+*ngIf="isModalOpen"
+[pokemon]="pokemon"
+[evolutionChain]="evolutionChain"
+></app-form-submission>

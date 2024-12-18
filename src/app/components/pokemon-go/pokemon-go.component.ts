@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.services';
+import { MatDialog } from '@angular/material/dialog';
+
+
 
 @Component({
   selector: 'app-pokemon-go',
@@ -10,6 +13,12 @@ import { PokemonService } from '../../services/pokemon.services';
   styleUrl: './pokemon-go.component.css',
 })
 export class PokemonGoComponent implements OnInit {
+isModalOpen: boolean=false;
+
+
+  openModalBuy() {
+    this.isModalOpen = true;
+  }
 
   hearCry(url: string) {
     const audio = new Audio();
@@ -31,7 +40,8 @@ export class PokemonGoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   async ngOnInit(): Promise<void> {
