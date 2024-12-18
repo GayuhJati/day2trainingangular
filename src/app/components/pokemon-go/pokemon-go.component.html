@@ -3,6 +3,7 @@
   class="container px-[64px] py-[64px] flex flex-col justify-items-center"
 >
   <div class="w-full flex flex-col gap-1 justify-center">
+    <div cl>
     <div class="flex justify-center items-center flex-col gap-4">
       <img
         [src]="pokemon.sprites.front_default"
@@ -33,6 +34,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="flex flex-col justify-center gap-2">
       <div class="font-semibold">Evolution</div>
       <div
@@ -52,7 +54,7 @@
         </button>
       </div>
     </div>
-    <button mat-flat-button (click)="openModalBuy()">Buy</button>
+    <button mat-flat-button (click)="toggleDrawer()">Buy</button>
     <button class="p-4 bg-slate-50 rounded-lg" routerLink="">
       Back To Pokemon List
     </button>
@@ -60,7 +62,9 @@
 </div>
 
 <app-form-submission
-*ngIf="isModalOpen"
+*ngIf="isDrawerOpen"
 [pokemon]="pokemon"
 [evolutionChain]="evolutionChain"
+(closeDrawer)="toggleDrawer()"
+(formSubmitted)="openSuccessModal()"
 ></app-form-submission>

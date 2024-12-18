@@ -32,6 +32,8 @@ isModalOpen: boolean=false;
   currentEvolutionIndex: number = 0;
   pokemonCryUrl: string | null = null;
   selectedButton: string | null = null;
+  isDrawerOpen: boolean = false;
+  showSuccessModal: boolean = false;
 
   onSelectButton(name: string): void {
     this.selectedButton = name; 
@@ -116,5 +118,18 @@ isModalOpen: boolean=false;
       }
     }
   }
+
+  toggleDrawer(): void {
+    this.isDrawerOpen = !this.isDrawerOpen;
+  }
+
+  openSuccessModal(): void {
+    this.showSuccessModal = true;
+  }
+
+  closeSuccessModal(): void {
+    this.showSuccessModal = false;
+  }
+
 
 }

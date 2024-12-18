@@ -13,11 +13,11 @@ import { IConfig, ICountry } from 'ngx-countries-dropdown';
 })
 export class FormSubmissionComponent implements OnChanges{
   async onSubmit(): Promise<void> {
-    try{
-      this.dbService.saveFormSubmission(this.purchaseForm.value);
-    }catch(err){
-      console.error('Error saving form submission:', err);
+    if (this.purchaseForm.invalid) {
+      this.purchaseForm.markAllAsTouched();
+      return;
     }
+    
     const formData = {
       ...this.purchaseForm.value,
       pokemonToBuy:
