@@ -22,6 +22,9 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AuthGuard } from './guards/auth.guard';
 import { LayoutComponent } from './components/layout/layout.component';
 import { CvPageComponent } from './components/cv-page/cv-page.component';
+import { EditFormComponent } from './components/edit-form/edit-form.component';
+import { PruchaseModalComponent } from './components/pruchase-modal/pruchase-modal.component';
+import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { CvPageComponent } from './components/cv-page/cv-page.component';
     SubmissionPageComponent,
     AuthFormComponent,
     LayoutComponent,
-    CvPageComponent
+    CvPageComponent,
+    EditFormComponent,
+    PruchaseModalComponent,
+    DeleteModalComponent
   ],
   imports: [
     BrowserModule,

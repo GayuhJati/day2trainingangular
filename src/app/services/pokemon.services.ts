@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import axios from 'axios';
 
@@ -9,7 +10,7 @@ export class PokemonService{
   private apiEvolve = 'https://pokeapi.co/api/v2/evolution-chain/';
   private apiSpecies = 'https://pokeapi.co/api/v2/pokemon-species/';
 
-  constructor() {
+  constructor(private http: HttpClient) {
     console.log('PokemonService: Constructor called');
   }
 
@@ -26,6 +27,10 @@ export class PokemonService{
   async getPokemonById(name: string) {
     const response = await axios.get(`${this.apiUrl}/${name}`);
     return response.data;
+  }
+
+  async getPokemonByName(name: string) {
+    return this.http.get(`${this.apiUrl}/${name}`)
   }
 
   async getPokeomenEvolve(url: string){

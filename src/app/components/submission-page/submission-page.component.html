@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let item of submissions" 
+          *ngFor="let item of submissions"
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
           <th
@@ -31,21 +31,28 @@
           <td class="px-6 py-4">{{ item.firstName + " " + item.lastName }}</td>
           <td class="px-6 py-4">{{ item.email }}</td>
           <td class="px-6 py-4">{{ item.phoneCountryCode + item.phone }}</td>
-          <td class="px-6 py-4 text-right">
-            <a
-              href="#"
+          <td class="px-6 py-4 text-right flex flex-row gap-4">
+            <button
+              (click)="editSubmission(item.id)"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >Edit</a
             >
-            <a
-            href="#"
-            class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-            >Delete</a
-          >
+              Edit
+            </button>
+            <button
+              (click)="openDeleteModal(item)"
+              class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
+      <app-delete-modal
+        *ngIf="deleteTarget"
+        [submission]="deleteTarget"
+        (cancel)="closeDeleteModal()"
+        (confirm)="confirmDelete()"
+      ></app-delete-modal>
     </table>
-  </div>  
+  </div>
 </div>
-

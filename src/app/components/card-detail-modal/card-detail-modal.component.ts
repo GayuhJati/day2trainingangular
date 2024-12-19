@@ -22,6 +22,9 @@ export class CardDetailModalComponent {
     this.dialogRef.close();
   }
 
+  onClick(){
+    
+  }
   
 
 }

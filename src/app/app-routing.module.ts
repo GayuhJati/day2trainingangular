@@ -8,6 +8,8 @@ import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CvPageComponent } from './components/cv-page/cv-page.component';
+import { EditFormComponent } from './components/edit-form/edit-form.component';
+import { CanComponentDeactivateGuard } from './guards/can-deactivate.guard';
 
 const routes: Routes = [
   {
@@ -35,6 +37,11 @@ const routes: Routes = [
         path:'submission',
         component: SubmissionPageComponent
       },
+      {
+        path:'edit-form-submission/:id',
+        component: EditFormComponent,
+        canDeactivate: [CanComponentDeactivateGuard]
+      }
     ]
   },
   
