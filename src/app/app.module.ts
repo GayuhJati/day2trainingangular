@@ -25,23 +25,20 @@ import { CvPageComponent } from './components/cv-page/cv-page.component';
 import { EditFormComponent } from './components/edit-form/edit-form.component';
 import { PruchaseModalComponent } from './components/pruchase-modal/pruchase-modal.component';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
+import { CartComponent } from './components/cart/cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { StoreModule } from '@ngrx/store';
+import { cartReducer } from './state/cart/cart.reducer';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PokemonListComponent,
-    DetailPokemonComponent,
-    PokemonGoComponent,
-    CardDetailModalComponent,
     NavbarComponent,
-    FormSubmissionComponent,
-    SubmissionPageComponent,
     AuthFormComponent,
     LayoutComponent,
-    CvPageComponent,
-    EditFormComponent,
-    PruchaseModalComponent,
-    DeleteModalComponent
+    CartComponent,
+    CheckoutComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -49,7 +46,16 @@ import { DeleteModalComponent } from './components/delete-modal/delete-modal.com
     FormsModule,
     NgxCountriesDropdownModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot(
+      { cart: cartReducer },
+      {
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+        },
+      }
+    ),
   ],
   providers: [
     provideClientHydration(withEventReplay()),

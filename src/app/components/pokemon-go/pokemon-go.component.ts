@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.services';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { addToCart } from '../../state/cart/cart.actions';
 
 
 
@@ -22,9 +24,9 @@ isModalOpen: boolean=false;
 
   hearCry(url: string) {
     const audio = new Audio();
-    audio.src = url; 
-    audio.load(); 
-    audio.play(); 
+    audio.src = url;
+    audio.load();
+    audio.play();
   }
   pokemon: any = null;
   evolutionChain: any[] =[];
@@ -36,13 +38,14 @@ isModalOpen: boolean=false;
   showSuccessModal: boolean = false;
 
   onSelectButton(name: string): void {
-    this.selectedButton = name; 
+    this.selectedButton = name;
   }
 
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
     private router: Router,
+    private store: Store,
     private dialog: MatDialog
   ) {}
 
@@ -58,7 +61,7 @@ isModalOpen: boolean=false;
       this.loadPokemonDetails(name);
     }
   }
-  
+
 
   private async loadPokemonDetails(name: string): Promise<void>{
     this.selectedButton = name;
@@ -131,5 +134,14 @@ isModalOpen: boolean=false;
     this.showSuccessModal = false;
   }
 
+  navigateToSubmission(): void {
+    this.router.navigate(['/submission']);
+  }
+
+  addToCart(pokemon: any): void {
+    const cartItem = { pokemon, quantity: 1 };
+    alert(`Pokemon ${cartItem.pokemon.name} has been added to your cart!`);
+    this.store.dispatch(addToCart(cartItem));
+  }
 
 }

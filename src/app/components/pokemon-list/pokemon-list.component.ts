@@ -14,18 +14,6 @@ import { colorMap, PokemonType } from '../constant/pokemon-color';
 
 export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
 
-  colorMapper: Record<PokemonType, string> = {
-    Fire: 'bg-red-500 text-white',
-    Water: 'bg-blue-500 text-white',
-    Grass: 'bg-green-500 text-white',
-    Electric: 'bg-yellow-500 text-black',
-    Ice: 'bg-blue-200 text-black',
-    Rock: 'bg-gray-500 text-white',
-    Flying: 'bg-purple-400 text-white',
-    Psychic: 'bg-pink-500 text-white',
-    Dark: 'bg-gray-800 text-white',
-    Fairy: 'bg-pink-300 text-black',
-  };
   pokemonList: any[] = [];
   filteredPokemon: any[] = [];
   paginatedPokemon: any[] = [];
@@ -39,12 +27,29 @@ export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
   totalPages: number = 0;
   isLoading: boolean = true;
 
-  colorMap = this.colorMapper;
-  
 
-  getTypeClass(pokemonType: PokemonType): string {
-    return this.colorMap[pokemonType] || 'bg-gray-300 text-black'; 
+
+  getTypeClass(element: string): string {
+    const typeClasses: { [key: string]: string } = {
+      fire: 'bg-gradient-to-r from-red-500 to-orange-500 text-white',
+      water: 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white',
+      grass: 'bg-gradient-to-r from-green-500 to-lime-500 text-white',
+      electric: 'bg-gradient-to-r from-yellow-500 to-amber-400 text-black',
+      ice: 'bg-gradient-to-r from-blue-200 to-cyan-300 text-black',
+      rock: 'bg-gradient-to-r from-gray-500 to-gray-700 text-white',
+      flying: 'bg-gradient-to-r from-purple-400 to-indigo-500 text-white',
+      psychic: 'bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white',
+      dark: 'bg-gradient-to-r from-gray-800 to-black text-white',
+      fairy: 'bg-gradient-to-r from-pink-300 to-rose-300 text-black',
+      bug: 'bg-gradient-to-r from-green-600 to-teal-600 text-white',
+      poison: 'bg-gradient-to-r from-purple-500 to-violet-700 text-white', 
+    ground: 'bg-gradient-to-r from-yellow-700 to-orange-600 text-white',
+    fighting: 'bg-gradient-to-r from-orange-600 to-red-700 text-white',
+    ghost: 'bg-gradient-to-r from-purple-700 to-black text-white',
+    };
+    return typeClasses[element] || 'bg-gradient-to-r from-gray-200 to-gray-300 text-black'; // Default class
   }
+  
   
 
   async openModal(url: any): Promise<void>  {

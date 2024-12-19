@@ -14,11 +14,22 @@ import { RealtimeDatabaseService } from '../../services/realtime-database.servic
 export class EditFormComponent implements OnInit {
   submissionId: string = '';
   submissionForm: FormGroup;
+  isDirty: boolean= false;
   pokemonToBuy: any[] = [];
   buyOption: string = '1';
   countries = [
     { code: '+1', name: '🇺🇸' },
     { code: '+62', name: '🇮🇩' },
+    { code: '+44', name: '🇬🇧' },
+  { code: '+91', name: '🇮🇳' },
+  { code: '+86', name: '🇨🇳' },
+  { code: '+81', name: '🇯🇵' },
+  { code: '+49', name: '🇩🇪' },
+  { code: '+33', name: '🇫🇷' },
+  { code: '+39', name: '🇮🇹' },
+  { code: '+61', name: '🇦🇺' },
+  { code: '+7', name: '🇷🇺' },
+  { code: '+34', name: '🇪🇸' },
   ];
 
   constructor(
@@ -39,6 +50,9 @@ export class EditFormComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.submissionForm.valueChanges.subscribe(()=>{
+      this.isDirty = this.submissionForm.dirty;
+    })
     this.submissionId = this.route.snapshot.paramMap.get('id') || '';
     const submission = await this.databaseService.getFormSubmission(
       this.submissionId
@@ -80,6 +94,13 @@ export class EditFormComponent implements OnInit {
     } catch (error) {
       console.error('Error updating submission:', error);
     }
+  }
+
+  canDeactivate():boolean{
+    if(this.submissionForm.dirty){
+      return confirm('Are you sure you want to leave this submission')
+    }
+    return true;
   }
 
 }

@@ -93,16 +93,27 @@ export class FormSubmissionComponent implements OnChanges, OnInit{
     //   this.submissionId
     // );
     // 
-      this.pokemonToBuy = await Promise.all(
-        this.pokemonToBuy.map(async (pokemonName: string) => {
-          return this.pokService.getPokemonById(pokemonName);
-        })
-      );
+    this.purchaseForm.get('buyOption')?.valueChanges.subscribe((value) => {
+      if (value === '1') {
+        this.pokemonToBuy = [pokId];
+      } else {
+        const species = this.pokService.getPokemoneSpecies(this.pokemon.name);
+        const evolutionChainUrl = species;
+        const evolutionChain = this.evolutionChain;
+        this.pokemonToBuy = evolutionChain.map((i: any) => i.name);
+        console.log(this.pokemonToBuy)
+      }
+    });
+      // this.pokemonToBuy = await Promise.all(
+      //   this.pokemonToBuy.map(async (pokemonName: string) => {
+      //     return this.pokService.getPokemonById(pokemonName);
+      //   })
+      // );
   
   }
   
 
-  ngOnChanges(changes: SimpleChanges): void {
+  async ngOnChanges(changes: SimpleChanges): Promise<void> {
     if(changes['pokemon'] && changes['pokemon'].currentValue){
       console.log('updated Pokemon', this.pokemon);
       console.log(this.evolutionChain);

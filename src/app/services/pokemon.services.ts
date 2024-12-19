@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import axios from 'axios';
+import { firstValueFrom } from "rxjs";
 
 @Injectable({
     providedIn: 'root',
@@ -29,14 +30,42 @@ export class PokemonService{
     return response.data;
   }
 
-  async getPokemonByName(name: string) {
-    return this.http.get(`${this.apiUrl}/${name}`)
+  async getPokemonByName(name: string): Promise<any> {
+    return firstValueFrom(this.http.get<any>(`${this.apiUrl}/${name}`));
   }
 
-  async getPokeomenEvolve(url: string){
-    const response = await axios.get(url);
-    const chain = response.data.chain;
-    return this.parseEvolveChain(chain);
+  async getPokeomenEvolve(url: string): Promise<any[]> {
+    const response = await firstValueFrom(this.http.get<any>(url));
+    const chain = response.chain;
+
+    const evolutions = this.parseEvolutionChain(chain);
+    const detailedEvolutions = await Promise.all(
+      evolutions.map(async (evo) => {
+        const details = await this.getPokemonByName(evo.name);
+        return {
+          ...evo,
+          sprites: details.sprites,
+          selected: true,
+        };
+      })
+    );
+
+    return detailedEvolutions;
+  }
+
+  private parseEvolutionChain(chain: any): any[] {
+    const evolutions = [];
+    let current = chain;
+
+    while (current) {
+      evolutions.push({
+        name: current.species.name,
+        url: current.species.url,
+      });
+      current = current.evolves_to[0];
+    }
+
+    return evolutions;
   }
 
   parseEvolveChain(chain: any){

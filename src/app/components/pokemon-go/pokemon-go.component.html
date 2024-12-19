@@ -42,7 +42,7 @@
         class="flex flex-col justify-center items-center min-w-md max-w-lg"
       >
         <button
-          [routerLink]="['/pokemon', ctx.name]"
+          [routerLink]="['/pokemon/pokemon-detail', ctx.name]"
           (click)="selectedEvolvePage(ctx.name)"
           [ngClass]="{
             'bg-green-500 text-white': selectedButton === ctx.name,
@@ -54,8 +54,8 @@
         </button>
       </div>
     </div>
-    
-    <button mat-flat-button (click)="toggleDrawer()">Buy</button>
+
+    <button mat-flat-button (click)="addToCart(pokemon)">Buy</button>
     <button class="p-4 bg-slate-50 rounded-lg" routerLink="/pokemon">
       Back To Pokemon List
     </button>
@@ -69,3 +69,10 @@
   (closeDrawer)="toggleDrawer()"
   (formSubmitted)="openSuccessModal()"
 ></app-form-submission>
+
+<app-pruchase-modal
+*ngIf="showSuccessModal"
+  (close)="closeSuccessModal()"
+  (continueBrowsing)="closeSuccessModal()"
+  (goToSubmission)="navigateToSubmission()"
+></app-pruchase-modal>

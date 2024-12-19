@@ -10,6 +10,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { CvPageComponent } from './components/cv-page/cv-page.component';
 import { EditFormComponent } from './components/edit-form/edit-form.component';
 import { CanComponentDeactivateGuard } from './guards/can-deactivate.guard';
+import { CartComponent } from './components/cart/cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 const routes: Routes = [
   {
@@ -21,27 +23,23 @@ const routes: Routes = [
     component: LayoutComponent,
     canActivate: [AuthGuard],
     children:[
+      { path: '', component: CvPageComponent },
+      { path: 'cart', component: CartComponent },
+      { path: 'checkout', component: CheckoutComponent},
       {
-        path:'',
-        component: CvPageComponent
+        path: 'pokemon',
+        loadChildren: () =>
+          import('./modules/pokemon/pokemon.module').then(
+            (m) => m.PokemonModule
+          ),
       },
       {
-        path:'pokemon',
-        component: PokemonListComponent
+        path: 'submission',
+        loadChildren: () =>
+          import('./modules/submissions/submissions.module').then(
+            (m) => m.SubmissionsModule
+          ),
       },
-      {
-        path:'pokemon/:name',
-        component: PokemonGoComponent
-      },
-      {
-        path:'submission',
-        component: SubmissionPageComponent
-      },
-      {
-        path:'edit-form-submission/:id',
-        component: EditFormComponent,
-        canDeactivate: [CanComponentDeactivateGuard]
-      }
     ]
   },
   

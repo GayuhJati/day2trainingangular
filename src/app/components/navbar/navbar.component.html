@@ -14,7 +14,18 @@
             >{{ nav.label }}</a
           >
         </li>
+        <li>
+          <a routerLink="/cart" class="rounded-md flex flex-row px-3 py-2 font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+            Cart
+            <span
+              class="px-2 py-1 ml-2 text-xs font-bold text-white bg-red-500 rounded-full"
+            >
+              {{ cartItemCount$ | async }}
+            </span>
+          </a>
+        </li>
       </ul>
+
       <li>
         <button
           (click)="logout()"
