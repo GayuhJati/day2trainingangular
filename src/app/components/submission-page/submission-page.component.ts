@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-submission-page',
   standalone: false,
-  
+
   templateUrl: './submission-page.component.html',
   styleUrl: './submission-page.component.css'
 })
@@ -35,7 +35,7 @@ export class SubmissionPageComponent implements OnInit{
   }
 
   editSubmission(submissionId: string): void {
-    this.router.navigate(['/edit-form-submission', submissionId]);
+    this.router.navigate(['/submission/edit-form-submission', submissionId]);
   }
 
   openDeleteModal(submission: any): void {
@@ -59,6 +59,6 @@ export class SubmissionPageComponent implements OnInit{
       console.error('Error deleting form submission:', error);
     }
   }
-  
+
 
 }
